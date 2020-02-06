@@ -1,4 +1,3 @@
-#pip install -U selenium
 from selenium.webdriver.support.select import Select
 def login():
     username = driver.find_element_by_name("username")
