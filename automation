@@ -1,9 +1,14 @@
+from filecmp import clear_cache
 from selenium.webdriver.support.select import Select
 def login():
     username = driver.find_element_by_name("username")
+    print(username.is_displayed()) # returns true/false based on element status
+    print(username.is_enabled())
     username.send_keys("qaaiuser")
 
     password = driver.find_element_by_name("password")
+    print(password.is_displayed())
+    print(password.is_enabled())
     password.send_keys("qaaiuser")
 
     login=driver.find_element_by_id("submit")
@@ -38,7 +43,7 @@ def AI_build_create():
     select_modeltechnique = Select(driver.find_element_by_name("modelingtechnique"))
     select_modeltechnique.select_by_visible_text("Auto ML")
 
-    select_deepLearningFramework = driver.find_element_by_xpath("//select[@ng-model='request.framework']/option[text()='Auto Keras']").click()
+    driver.find_element_by_xpath("//select[@ng-model='request.framework']/option[text()='Auto Keras']").click()
 
     select_element = Select(driver.find_element_by_name("trainingmode"))
     select_element.select_by_visible_text("Standalone")
@@ -49,9 +54,9 @@ def AI_build_create():
     select_element = Select(driver.find_element_by_name("datatype"))
     select_element.select_by_visible_text("Image")
 
-    select_tool = driver.find_element_by_xpath("//*[@class='method notebook']").click()
+    driver.find_element_by_xpath("//*[@class='method notebook']").click()
 
-    create_model =  driver.find_element_by_xpath("//button[@class='btn btn-primary float-right ng-binding ng-scope']").click()
+    driver.find_element_by_xpath("//button[@class='btn btn-primary float-right ng-binding ng-scope']").click()
 
 from selenium import webdriver
 import time
@@ -63,10 +68,10 @@ driver.maximize_window()
 driver.get("https://18.139.207.2/")
 driver.implicitly_wait(20)
 login()
-#clear_cache(driver)
 AI_workbench()
 time.sleep(2)
 AI_build()
 AI_build_create()
+clear_cache(driver)
 
 
