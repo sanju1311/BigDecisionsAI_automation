@@ -1,0 +1,34 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+import time
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
+
+driver=webdriver.Chrome(executable_path="C:\\Users\\736325\\Downloads\\chromedriver_win32 (1)\\chromedriver")
+driver.maximize_window()
+driver.get("http://demo.automationtesting.in/Windows.html")
+print(driver.title) # returns title of the page
+print(driver.current_url) #returns url of the page
+driver.get("http://www.amazon.in")
+print(driver.title)
+print(driver.current_url)
+driver.back()
+print(driver.title)
+driver.forward()
+print(driver.title)
+#driver.find_element_by_xpath("//*[@id='Tabbed']/a/button").click()
+#time.sleep(5)
+#print(driver.page_source) #returns the html code of the page
+#driver.close()
+driver.quit() #closes all the browsers
+
+username = driver.find_element_by_name("username")
+username.is_selected() # for radio buttons & check boxes, checking enabled or not
+#print(username.is_displayed()) # returns true/false based on element status
+#print(username.is_enabled())
+
+driver.find_element(By.ID," ").click() # alternative
+wait=WebDriverWait(driver,10)
+
+wait.until(EC.element_to_be_clickable(By.XPATH," "))
