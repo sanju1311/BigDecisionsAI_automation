@@ -1,0 +1,15 @@
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.wait import WebDriverWait
+
+driver=webdriver.Chrome(executable_path="C:\\Users\\736325\\Downloads\\chromedriver_win32 (1)\\chromedriver")
+driver.maximize_window()
+driver.get("https://www.expedia.com/")
+driver.implicitly_wait(10)
+driver.find_element(By.ID,"tab-flight-tab-hp").click()
+driver.find_element(By.ID,"flight-origin-hp-flight").send_keys("Bengaluru")
+time.sleep()
+driver.find_element(By.XPATH,"flight-destination-hp-flight").send_keys("Kolkata")
+#driver.close()
