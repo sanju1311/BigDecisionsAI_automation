@@ -1,16 +1,8 @@
 from filecmp import clear_cache
 from selenium.webdriver.support.select import Select
 def login():
-    username = driver.find_element_by_name("username")
-    print(username.is_displayed()) # returns true/false based on element status
-    print(username.is_enabled())
-    username.send_keys("qaaiuser")
-
-    password = driver.find_element_by_name("password")
-    print(password.is_displayed())
-    print(password.is_enabled())
-    password.send_keys("qaaiuser")
-
+    driver.find_element_by_name("username").send_keys("qaaiuser")
+    driver.find_element_by_name("password").send_keys("qaaiuser")
     login=driver.find_element_by_id("submit")
     driver.execute_script("arguments[0].click();",login)
 
@@ -29,7 +21,7 @@ def AI_build_create():
     select_project.select_by_visible_text("insulator_classification")
 
     modelname = driver.find_element_by_name("notename")
-    modelname.send_keys("584056_feb6_v1")
+    modelname.send_keys("insclassify_7feb")
 
     select_dataset = Select(driver.find_element_by_name("dataset"))
     select_dataset.select_by_visible_text("drone_dataset")
@@ -45,14 +37,14 @@ def AI_build_create():
 
     driver.find_element_by_xpath("//select[@ng-model='request.framework']/option[text()='Auto Keras']").click()
 
-    select_element = Select(driver.find_element_by_name("trainingmode"))
-    select_element.select_by_visible_text("Standalone")
+    select_ele = Select(driver.find_element_by_name("trainingmode"))
+    select_ele.select_by_visible_text("Standalone")
 
-    select_element = Select(driver.find_element_by_name("tempCategory"))
-    select_element.select_by_visible_text("Image Classification")
+    select_temp = Select(driver.find_element_by_name("tempCategory"))
+    select_temp.select_by_visible_text("Image Classification")
 
-    select_element = Select(driver.find_element_by_name("datatype"))
-    select_element.select_by_visible_text("Image")
+    select_datatype = Select(driver.find_element_by_name("datatype"))
+    select_datatype.select_by_visible_text("Image")
 
     driver.find_element_by_xpath("//*[@class='method notebook']").click()
 
@@ -66,12 +58,12 @@ driver=webdriver.Chrome(executable_path="C:\\Users\\736325\\Downloads\\chromedri
 driver.maximize_window()
 
 driver.get("https://18.139.207.2/")
-driver.implicitly_wait(20)
+driver.implicitly_wait(10)
+assert "BigDecisions - AI |" in driver.title
 login()
 AI_workbench()
 time.sleep(2)
 AI_build()
 AI_build_create()
-clear_cache(driver)
-
-
+#driver.close()
+#clear_cache(driver)
