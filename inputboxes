@@ -45,4 +45,6 @@ all_options=drp.options
 for option in all_options :
     print(option.text)
 
-
+#Alerts/Popups
+driver.switch_to_alert().accept() #closes the alert by pressing Ok
+driver.switch_to_alert().dismiss() #closes the alert by pressing Cancel
