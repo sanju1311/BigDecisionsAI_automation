@@ -1,5 +1,6 @@
 from filecmp import clear_cache
 from selenium.webdriver.support.select import Select
+
 def login():
     driver.find_element_by_name("username").send_keys("qaaiuser")
     driver.find_element_by_name("password").send_keys("qaaiuser")
@@ -7,12 +8,13 @@ def login():
     driver.execute_script("arguments[0].click();",login)
 
 def AI_workbench():
-    driver.find_element_by_id("id_ai").click()
-    driver.find_element_by_xpath("//*[@id='id_workbench']/a/span[1]").click()
-    driver.find_element_by_id("id_build").click()
+    driver.find_element_by_link_text("AI").click()
+    driver.find_element_by_partial_link_text("Workbench").click()
+    driver.find_element_by_link_text("Build").click()
 
 def AI_build():
-    driver.find_element_by_xpath("/html/body/div[4]/div[3]/div[2]/div/div[2]/div[1]/div/div/div[1]/div/button").click()
+    new_model=driver.find_element_by_xpath("/html/body/div[4]/div[3]/div[2]/div/div[2]/div[1]/div/div/div[1]/div/button")
+    driver.execute_script("arguments[0].click();", new_model)
 
 def AI_build_create():
     time.sleep(2)
@@ -24,13 +26,14 @@ def AI_build_create():
     modelname.send_keys("insclassify_7feb")
 
     select_dataset = Select(driver.find_element_by_name("dataset"))
+    #if select_project.is_displayed():
     select_dataset.select_by_visible_text("drone_dataset")
 
     select_interpretor = Select(driver.find_element_by_name("interpretor"))
-    select_interpretor.select_by_visible_text("python")
+    select_interpretor.select_by_index(1)
 
     select_element = Select(driver.find_element_by_name("systemtype"))
-    select_element.select_by_visible_text("CPU")
+    select_element.select_by_index(1)
 
     select_modeltechnique = Select(driver.find_element_by_name("modelingtechnique"))
     select_modeltechnique.select_by_visible_text("Auto ML")
@@ -58,7 +61,7 @@ driver=webdriver.Chrome(executable_path="C:\\Users\\736325\\Downloads\\chromedri
 driver.maximize_window()
 
 driver.get("https://18.139.207.2/")
-driver.implicitly_wait(10)
+driver.implicitly_wait(5)
 assert "BigDecisions - AI |" in driver.title
 login()
 AI_workbench()
