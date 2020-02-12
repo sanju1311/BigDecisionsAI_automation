@@ -1,0 +1,30 @@
+from selenium import webdriver
+import time
+
+driver=webdriver.Chrome(executable_path="C:\\Users\\736325\\Downloads\\chromedriver_win32 (1)\\chromedriver")
+driver.maximize_window()
+#how to handle/switch between the frames
+driver.get("https://selenium.dev/selenium/docs/api/java/index.html")
+#driver.implicitly_wait(5)
+driver.switch_to.frame("packageListFrame") #1st frame
+driver.find_element_by_link_text("org.openqa.selenium").click()
+time.sleep(3)
+driver.switch_to.default_content()
+driver.switch_to.frame("packageFrame") #2nd frame
+driver.find_element_by_link_text("WebDriver").click()
+time.sleep(3)
+driver.switch_to.default_content()
+time.sleep(3)
+driver.find_element_by_xpath("/html/body/div[1]/ul/li[5]").click()
+
+#How to handle/switch b/w browser windows
+driver.get("http://demo.automationtesting.in/Windows.html")
+driver.find_element_by_xpath("//*[@id='Tabbed']/a/button").click()
+print(driver.current_window_handle) #handle value of current window
+handles=driver.window_handles #returns all the handle values of the opened windows
+
+for handle in handles:
+    driver.switch_to.window(handle)
+    print(driver.title)
+
+driver.quit()
