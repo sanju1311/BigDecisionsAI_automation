@@ -1,5 +1,8 @@
+import random
 from filecmp import clear_cache
 from selenium.webdriver.support.select import Select
+rnd_value=str(random.randint(1,10000))
+mybuild="736325_feb12_" + rnd_value
 
 def login():
     driver.find_element_by_name("username").send_keys("qaaiuser")
@@ -23,10 +26,9 @@ def AI_build_create():
     select_project.select_by_visible_text("insulator_classification")
 
     modelname = driver.find_element_by_name("notename")
-    modelname.send_keys("insclassify_7feb")
+    modelname.send_keys(mybuild)
 
     select_dataset = Select(driver.find_element_by_name("dataset"))
-    #if select_project.is_displayed():
     select_dataset.select_by_visible_text("drone_dataset")
 
     select_interpretor = Select(driver.find_element_by_name("interpretor"))
@@ -53,6 +55,28 @@ def AI_build_create():
 
     driver.find_element_by_xpath("//button[@class='btn btn-primary float-right ng-binding ng-scope']").click()
 
+def train_click():
+    driver.find_element_by_xpath("//*[@id='id_train']/a/span[1]").click()
+    time.sleep(2)
+    train=driver.find_element_by_xpath("/html/body/div[4]/div[3]/div[2]/div/div[2]/div[1]/div/div/div[1]/div/button")
+    driver.execute_script("arguments[0].click();", train)
+
+def train_model():
+
+    jobname=driver.find_element_by_name("jobName")
+    jobname.send_keys(mybuild)
+
+    select_project = Select(driver.find_element_by_name("project"))
+    select_project.select_by_visible_text("insulator_classification")
+
+    select_model = Select(driver.find_element_by_name("notebook"))
+    select_model.select_by_visible_text(mybuild)
+
+    select_dataset = Select(driver.find_element_by_name("dataset"))
+    select_dataset.select_by_visible_text("drone_dataset")
+
+    driver.find_element_by_xpath("//button[@class='btn btn-primary ng-binding']").click()
+
 from selenium import webdriver
 import time
 
@@ -68,5 +92,9 @@ AI_workbench()
 time.sleep(2)
 AI_build()
 AI_build_create()
+time.sleep(10)
+train_click()
+time.sleep(3)
+train_model()
 #driver.close()
 #clear_cache(driver)
