@@ -1,0 +1,14 @@
+from selenium import webdriver
+import time
+driver=webdriver.Chrome(executable_path="C:\\Users\\736325\\Downloads\\chromedriver_win32 (1)\\chromedriver.exe")
+driver.maximize_window()
+driver.get("https://www.happyeasygo.com/")
+driver.implicitly_wait(5)
+
+#scroll based on pixels
+#driver.execute_script("window.scrollBy(0,1000)","")
+flag=driver.find_element_by_xpath("/html/body/div[12]/div[1]/div[6]/ul/li[4]/a")
+#scroll till the element is found
+driver.execute_script("arguments[0].scrollIntoView();",flag)
+#scroll the page till end
+driver.execute_script("window.scrollBy(0,document.body.scrollHeight")
