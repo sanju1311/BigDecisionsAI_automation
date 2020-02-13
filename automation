@@ -1,6 +1,9 @@
+from selenium import webdriver
+import time
 import random
 from filecmp import clear_cache
 from selenium.webdriver.support.select import Select
+
 rnd_value=str(random.randint(1,10000))
 mybuild="736325_feb12_" + rnd_value
 
@@ -55,14 +58,13 @@ def AI_build_create():
 
     driver.find_element_by_xpath("//button[@class='btn btn-primary float-right ng-binding ng-scope']").click()
 
-def train_click():
-    driver.find_element_by_xpath("//*[@id='id_train']/a/span[1]").click()
+def AI_train():
+    driver.find_element_by_id("id_train").click()
     time.sleep(2)
-    train=driver.find_element_by_xpath("/html/body/div[4]/div[3]/div[2]/div/div[2]/div[1]/div/div/div[1]/div/button")
-    driver.execute_script("arguments[0].click();", train)
+    driver.find_element_by_xpath("/html/body/div[4]/div[3]/div[2]/div/div[2]/div[1]/div/div/div[1]/div/button").click()
 
-def train_model():
-
+def AI_train_create():
+    time.sleep(2)
     jobname=driver.find_element_by_name("jobName")
     jobname.send_keys(mybuild)
 
@@ -71,30 +73,34 @@ def train_model():
 
     select_model = Select(driver.find_element_by_name("notebook"))
     select_model.select_by_visible_text(mybuild)
-
+    '''print(len(select_model.options))
+    list=select_model.options
+    for x in list:
+        print (x.text)'''
     select_dataset = Select(driver.find_element_by_name("dataset"))
     select_dataset.select_by_visible_text("drone_dataset")
 
     driver.find_element_by_xpath("//button[@class='btn btn-primary ng-binding']").click()
 
-from selenium import webdriver
-import time
+def train_actions():
+    time.sleep(2)
+    driver.find_element_by_xpath("/html/body/div[4]/div[3]/div[2]/div/div[2]/div[1]/div/div/div[2]/div/div/div/div[2]/create-table/div[1]/div/div[2]/div/div/div/input").send_keys(mybuild)
+    time.sleep(2)
+    driver.find_element_by_link_text("Actions").click()
+    driver.find_element_by_class_name("ng-scope").click()
 
 driver=webdriver.Chrome(executable_path="C:\\Users\\736325\\Downloads\\chromedriver_win32 (1)\\chromedriver.exe")
-
 driver.maximize_window()
-
 driver.get("https://18.139.207.2/")
 driver.implicitly_wait(5)
-assert "BigDecisions - AI |" in driver.title
 login()
 AI_workbench()
 time.sleep(2)
 AI_build()
 AI_build_create()
-time.sleep(10)
-train_click()
-time.sleep(3)
-train_model()
+time.sleep(5)
+AI_train()
+AI_train_create()
+train_actions()
 #driver.close()
 #clear_cache(driver)
