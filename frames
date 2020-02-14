@@ -4,7 +4,7 @@ import time
 driver=webdriver.Chrome(executable_path="C:\\Users\\736325\\Downloads\\chromedriver_win32 (1)\\chromedriver")
 driver.maximize_window()
 #how to handle/switch between the frames
-driver.get("https://selenium.dev/selenium/docs/api/java/index.html")
+'''driver.get("https://selenium.dev/selenium/docs/api/java/index.html")
 #driver.implicitly_wait(5)
 driver.switch_to.frame("packageListFrame") #1st frame
 driver.find_element_by_link_text("org.openqa.selenium").click()
@@ -27,4 +27,9 @@ for handle in handles:
     driver.switch_to.window(handle)
     print(driver.title)
 
-driver.quit()
+driver.quit() '''
+
+driver.get("https://testautomationpractice.blogspot.com/")
+driver.implicitly_wait(5)
+driver.switch_to_frame(0)
+driver.find_element_by_id("RESULT_FileUpload-10").send_keys("C:\\Users\\736325\\Documents\\flowers-recognition\\flowers\\daisy\\5547758_eea9edfd54_n.jpg")
