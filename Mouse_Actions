@@ -7,7 +7,7 @@ driver=webdriver.Chrome(executable_path="C:\\Users\\736325\\Downloads\\chromedri
 #driver.get("https://opensource-demo.orangehrmlive.com")
 driver.implicitly_wait(5)
 
-driver.find_element_by_id("txtUsername").send_keys("Admin")
+'''driver.find_element_by_id("txtUsername").send_keys("Admin")
 driver.find_element_by_id("txtPassword").send_keys("admin123")
 driver.find_element_by_id("btnLogin").click()
 
@@ -21,4 +21,18 @@ actions.move_to_element(admin).move_to_element(usermgt).move_to_element(user).cl
 element=driver.find_element_by_xpath("")
 actions.double_click(element).perform() #Double click action
 
-actions.context_click(element).perform() #Right click action
+actions.context_click(element).perform() #Right click action '''
+
+driver.maximize_window()
+driver.get("http://www.dhtmlgoodies.com/scripts/drag-drop-custom/demo-drag-drop-3.html")
+driver.implicitly_wait(5)
+source=driver.find_element_by_id("box3")
+dest=driver.find_element_by_id("box103")
+source1=driver.find_element_by_id("box6")
+dest1=driver.find_element_by_id("box106")
+source2=driver.find_element_by_id("box4")
+dest2=driver.find_element_by_id("box104")
+actions=ActionChains(driver)
+actions.drag_and_drop(source,dest).perform() #Drag and drop action
+actions.drag_and_drop(source1,dest1).perform()
+actions.drag_and_drop(source2,dest2).perform()
